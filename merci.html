@@ -52,12 +52,26 @@
             color: var(--subtle-text);
             margin-bottom: 2rem;
         }
-
-        /* STYLE MIS À JOUR : ITALIQUE RETIRÉ */
+        
         .teaser {
-            font-weight: 700; /* Gardé en gras pour le faire ressortir */
+            font-weight: 700;
             color: var(--text-color);
             margin-top: 2.5rem;
+        }
+
+        /* --- AMÉLIORATIONS RESPONSIVE POUR MOBILE --- */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem; /* Titre plus petit sur mobile */
+            }
+
+            p {
+                font-size: 1rem; /* Texte de paragraphe plus petit */
+            }
+
+            #logo {
+                max-height: 40px; /* Logo légèrement plus petit */
+            }
         }
 
     </style>
