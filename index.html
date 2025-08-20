@@ -25,7 +25,7 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
-            font-size: 15px; /* Police de base légèrement réduite */
+            font-size: 15px;
         }
         
         #logo {
@@ -40,11 +40,12 @@
             z-index: 100;
             background-color: var(--card-background);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            padding: 10px 20px;
+            padding: 10px 0;
         }
 
         .progress-bar-container {
-            width: 100%;
+            width: 90%;
+            margin: 0 auto;
             height: 8px;
             background-color: var(--input-border-color);
             border-radius: 4px;
@@ -89,10 +90,7 @@
              margin-bottom: 2.5rem;
         }
 
-        /* LOGIQUE DES ÉTAPES */
-        .form-step {
-            display: none;
-        }
+        .form-step { display: none; }
         .form-step.active {
             display: block;
             animation: fadeIn 0.5s ease-in-out;
@@ -102,17 +100,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .form-section {
-            margin-bottom: 3.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 2.5rem;
-        }
-        
-        .input-wrapper {
-            position: relative;
-        }
+        .form-section { margin-bottom: 3.5rem; }
+        .form-group { margin-bottom: 2.5rem; }
+        .input-wrapper { position: relative; }
 
         label {
             display: block;
@@ -135,12 +125,8 @@
             color: var(--text-color);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        input.error {
-            border-color: var(--error-color);
-        }
-        input.error:focus {
-            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2);
-        }
+        input.error { border-color: var(--error-color); }
+        input.error:focus { box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2); }
 
         input[type="text"]:focus,
         input[type="email"]:focus,
@@ -168,9 +154,7 @@
            position: absolute;
         }
         .checkmark {
-            height: 20px;
-            width: 20px;
-            min-width: 20px;
+            height: 20px; width: 20px; min-width: 20px;
             background-color: #eee;
             border: 1px solid var(--input-border-color);
             border-radius: 6px;
@@ -184,30 +168,19 @@
             background-color: var(--accent-color);
             border-color: var(--accent-color);
         }
-        .checkmark:after {
-            content: "";
-            display: none;
-        }
-        .options-group input:checked ~ .checkmark:after {
-            display: block;
-        }
+        .checkmark:after { content: ""; display: none; }
+        .options-group input:checked ~ .checkmark:after { display: block; }
         .options-group .checkmark:after {
-            width: 6px;
-            height: 12px;
+            width: 6px; height: 12px;
             border: solid white;
             border-width: 0 3px 3px 0;
             transform: rotate(45deg);
         }
-        .options-group input[type="radio"] ~ .checkmark {
-            border-radius: 50%;
-        }
+        .options-group input[type="radio"] ~ .checkmark { border-radius: 50%; }
         .options-group input[type="radio"]:checked ~ .checkmark:after {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             border-radius: 50%;
-            background: white;
-            border: none;
-            transform: none;
+            background: white; border: none; transform: none;
         }
 
         .other-input {
@@ -216,9 +189,7 @@
             margin-left: 32px;
             margin-top: -5px;
         }
-        .other-input.visible {
-            display: block;
-        }
+        .other-input.visible { display: block; }
 
         .rating-scale-group {
             display: flex;
@@ -243,11 +214,12 @@
             border-color: var(--accent-color);
         }
 
+        /* --- POSITIONNEMENT FINAL DES RÉACTIONS --- */
         .feedback-reaction {
             position: absolute;
-            top: 0;
-            right: 5px;
-            transform: translateY(-50%);
+            bottom: 0; /* Ancrage en bas du conteneur .input-wrapper */
+            right: 5px; /* Décalage de la droite */
+            transform: translateY(50%); /* Descend de moitié pour s'asseoir sur la bordure */
             background-color: #2D3748;
             color: white;
             padding: 8px 12px;
@@ -264,30 +236,23 @@
             animation: popInAndOut 2.5s ease-in-out forwards;
         }
         @keyframes popInAndOut {
-            0% { opacity: 0; transform: translateY(-50%) scale(0.5); }
-            15% { opacity: 1; transform: translateY(-50%) scale(1.05); }
-            40% { opacity: 1; transform: translateY(-50%) scale(1); }
-            80% { opacity: 1; transform: translateY(-50%) scale(1); }
-            100% { opacity: 0; transform: translateY(-50%) scale(0.7); }
+            0% { opacity: 0; transform: translateY(50%) scale(0.5); }
+            15% { opacity: 1; transform: translateY(50%) scale(1.05); }
+            40% { opacity: 1; transform: translateY(50%) scale(1); }
+            80% { opacity: 1; transform: translateY(50%) scale(1); }
+            100% { opacity: 0; transform: translateY(50%) scale(0.7); }
         }
         .feedback-reaction span { margin-right: 5px; }
 
         .button {
             width: 100%;
             background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: var(--font-family);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            color: white; border: none; padding: 16px 32px;
+            font-size: 1.1rem; font-weight: 700; font-family: var(--font-family);
+            border-radius: 10px; cursor: pointer; transition: all 0.3s ease;
             box-shadow: 0 4px 14px 0 rgba(46, 209, 198, 0.3);
             margin-top: 1.5rem;
         }
-
         .button:hover {
             background-color: #25a8a0;
             transform: translateY(-2px);
@@ -331,13 +296,15 @@
                     <div class="form-group">
                         <label for="name">Prénom & Nom</label>
                         <div class="input-wrapper">
-                            <input type="text" id="name" name="nom_complet" placeholder="Ex: Jean Dupont" required>
+                            <input class="listenable" type="text" id="name" name="nom_complet" placeholder="Ex: Jean Dupont" required>
+                            <span class="feedback-reaction"></span>
                         </div>
                     </div>
                      <div class="form-group">
                         <label for="email">Adresse mail</label>
                         <div class="input-wrapper">
-                            <input type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
+                            <input class="listenable" type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
+                            <span class="feedback-reaction"></span>
                         </div>
                     </div>
                     <button type="button" id="next-btn" class="button">Commencer l'Audit</button>
@@ -476,10 +443,11 @@
                         <div class="form-group">
                             <label>Sur quelles compétences aimerais-tu recevoir une formation ?</label>
                             <div class="options-group">
+                                <label><input class="listenable" type="checkbox" name="formations[]" value="Generation leads organique"><span class="checkmark"></span> Génération de leads organique</label>
+                                <label><input class="listenable" type="checkbox" name="formations[]" value="Leadership mindset"><span class="checkmark"></span> Leadership & Mindset</label>
                                 <label><input class="listenable" type="checkbox" name="formations[]" value="Negociation Avancee"><span class="checkmark"></span> Négociation avancée & Closing</label>
                                 <label><input class="listenable" type="checkbox" name="formations[]" value="Creation Contenu Video"><span class="checkmark"></span> Création de contenu vidéo (Reels...)</label>
                                 <label><input class="listenable" type="checkbox" name="formations[]" value="Personal Branding & LinkedIn"><span class="checkmark"></span> Personal Branding & LinkedIn</label>
-                                <label><input class="listenable" type="checkbox" name="formations[]" value="Prospection Haut de Gamme"><span class="checkmark"></span> Prospection clients UHNWI</label>
                                 <label><input class="listenable" type="checkbox" name="formations[]" value="Autre"><span class="checkmark"></span> Autre formation</label>
                                 <input type="text" name="formations_other" class="other-input" placeholder="Laquelle ?">
                             </div>
@@ -501,90 +469,106 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    // --- ÉLÉMENTS DU DOM ---
     const form = document.getElementById('strategic-audit-form');
     const step1 = document.getElementById('step-1');
     const step2 = document.getElementById('step-2');
     const nextBtn = document.getElementById('next-btn');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
-
-    nextBtn.addEventListener('click', () => {
-        let isValid = true;
-        nameInput.classList.remove('error');
-        emailInput.classList.remove('error');
-
-        if (nameInput.value.trim() === '') {
-            nameInput.classList.add('error');
-            isValid = false;
-        }
-        if (emailInput.value.trim() === '' || !emailInput.value.includes('@')) {
-            emailInput.classList.add('error');
-            isValid = false;
-        }
-
-        if (isValid) {
-            step1.classList.remove('active');
-            step2.classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    });
-
-    const inputs = Array.from(form.querySelectorAll('.listenable'));
+    const allListenableInputs = Array.from(form.querySelectorAll('.listenable'));
     const progressBar = document.getElementById('progress-bar');
+    
+    // --- ÉTAT ET CONFIGURATION ---
     const filledState = new Map();
+    const MIN_WORDS_FOR_TEXTAREA = 5;
     const REACTIONS = [
         { emoji: '✨', text: 'Super !' }, { emoji: '👍', text: 'Bien noté.' },
-        { emoji: '🎯', text: 'Précis !' }, { emoji: '🤔', text: 'Intéressant...' },
-        { emoji: '👌', text: 'Parfait.' }, { emoji: '✅', text: 'C\'est noté.' }
+        { emoji: '🎯', text: 'Précis !' }, { emoji: '👌', text: 'Parfait.' },
+        { emoji: '✅', text: 'C\'est noté.' }
     ];
+    const SHORT_ANSWER_REACTION = { emoji: '🤔', text: 'Peux-tu développer ?' };
 
-    const updateProgressBar = () => {
-        const requiredInputs = inputs.filter(el => el.required);
-        const requiredFieldNames = new Set(requiredInputs.map(el => el.name || el.id));
-        const filledCount = Array.from(filledState.keys()).filter(key => requiredFieldNames.has(key) && filledState.get(key)).length;
-        const progress = requiredFieldNames.size > 0 ? (filledCount / requiredFieldNames.size) * 100 : 0;
-        progressBar.style.width = `${progress}%`;
-    };
-
+    // --- LOGIQUE DES RÉACTIONS ---
     const getReactionContainer = (element) => element.closest('.input-wrapper').querySelector('.feedback-reaction');
     
     const showFeedback = (element) => {
         const reactionContainer = getReactionContainer(element);
         if (!reactionContainer) return;
+
+        let reactionToShow = REACTIONS[Math.floor(Math.random() * REACTIONS.length)];
+
+        // Logique de réaction conditionnelle pour les textareas
+        if (element.tagName === 'TEXTAREA') {
+            const wordCount = element.value.trim().split(/\s+/).filter(word => word.length > 0).length;
+            if (wordCount > 0 && wordCount < MIN_WORDS_FOR_TEXTAREA) {
+                reactionToShow = SHORT_ANSWER_REACTION;
+            }
+        }
+        
         reactionContainer.classList.remove('animate');
-        void reactionContainer.offsetWidth;
-        const randomReaction = REACTIONS[Math.floor(Math.random() * REACTIONS.length)];
-        reactionContainer.innerHTML = `<span>${randomReaction.emoji}</span> ${randomReaction.text}`;
+        void reactionContainer.offsetWidth; // Force le reflow du navigateur
+        reactionContainer.innerHTML = `<span>${reactionToShow.emoji}</span> ${reactionToShow.text}`;
         reactionContainer.classList.add('animate');
     };
 
-    const checkField = (element) => {
+    // --- LOGIQUE DE VÉRIFICATION & PROGRESSION ---
+    const checkField = (element, showReaction = false) => {
         let isFilled = false;
-        let fieldName = element.name || element.id;
+        const fieldName = element.name || element.id;
 
-        if (element.type === 'radio') {
-            const radioGroup = form.querySelectorAll(`input[name="${fieldName}"]`);
-            if (Array.from(radioGroup).some(radio => radio.checked)) isFilled = true;
-        } else if (element.type === 'checkbox') {
-             const checkboxGroup = form.querySelectorAll(`input[name="${fieldName}"]`);
-             if (Array.from(checkboxGroup).some(checkbox => checkbox.checked)) isFilled = true;
+        if (element.type === 'radio' || element.type === 'checkbox') {
+            const group = form.querySelectorAll(`input[name="${fieldName}"]`);
+            if (Array.from(group).some(el => el.checked)) isFilled = true;
         } else if (element.value.trim() !== '') {
             isFilled = true;
         }
 
-        if(isFilled && !filledState.get(fieldName)) {
-            if(element.closest('.input-wrapper')) {
+        if (isFilled && !filledState.get(fieldName)) {
+            if (showReaction && element.closest('.input-wrapper')) {
                 showFeedback(element);
             }
         }
         filledState.set(fieldName, isFilled);
     };
 
-    inputs.forEach(input => {
+    const updateProgressBar = () => {
+        const requiredInputsInStep2 = Array.from(step2.querySelectorAll('.listenable')).filter(el => el.required);
+        const requiredFieldNames = new Set(requiredInputsInStep2.map(el => el.name || el.id));
+        const filledCount = Array.from(filledState.keys()).filter(key => requiredFieldNames.has(key) && filledState.get(key)).length;
+        const progress = requiredFieldNames.size > 0 ? (filledCount / requiredFieldNames.size) * 100 : 0;
+        progressBar.style.width = `${progress}%`;
+    };
+
+    // --- NAVIGATION ENTRE ÉTAPES ---
+    nextBtn.addEventListener('click', () => {
+        let isValid = true;
+        [nameInput, emailInput].forEach(input => {
+            input.classList.remove('error');
+            if (input.value.trim() === '' || (input.type === 'email' && !input.value.includes('@'))) {
+                input.classList.add('error');
+                isValid = false;
+            } else {
+                checkField(input, true);
+            }
+        });
+
+        if (isValid) {
+            step1.classList.remove('active');
+            step2.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateProgressBar();
+        }
+    });
+
+    // --- ATTACHER LES ÉCOUTEURS D'ÉVÉNEMENTS ---
+    allListenableInputs.forEach(input => {
         const eventType = (input.type === 'radio' || input.type === 'checkbox') ? 'change' : 'blur';
         input.addEventListener(eventType, (e) => {
-            checkField(e.target);
-            updateProgressBar();
+            checkField(e.target, true);
+            if (step2.classList.contains('active')) {
+                updateProgressBar();
+            }
         });
     });
 
@@ -607,7 +591,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    inputs.forEach(input => checkField(input));
+    // --- INITIALISATION ---
+    allListenableInputs.forEach(input => checkField(input, false));
     updateProgressBar();
 });
 </script>
