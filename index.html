@@ -214,12 +214,11 @@
             border-color: var(--accent-color);
         }
 
-        /* --- POSITIONNEMENT FINAL DES RÉACTIONS --- */
         .feedback-reaction {
             position: absolute;
-            bottom: 0; /* Ancrage en bas du conteneur .input-wrapper */
-            right: 5px; /* Décalage de la droite */
-            transform: translateY(50%); /* Descend de moitié pour s'asseoir sur la bordure */
+            bottom: 0;
+            right: 5px;
+            transform: translateY(50%);
             background-color: #2D3748;
             color: white;
             padding: 8px 12px;
@@ -281,6 +280,8 @@
                 <input type="hidden" name="access_key" value="a78e2699-d790-4411-9f10-2e63aa5d47a4">
                 <input type="hidden" name="subject" value="Nouvelle réponse - Audit Stratégique d'Agent">
                 <input type="hidden" name="from_name" value="Formulaire d'Audit Terra Sky">
+                
+                <input type="hidden" name="redirect" value="https://opikcorporation.github.io/terrasky/merci.html">
                 
                 <div id="step-1" class="form-step active">
                     <img id="logo" src="images/logo.png" alt="Logo Terra Sky">
@@ -469,17 +470,16 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // --- ÉLÉMENTS DU DOM ---
     const form = document.getElementById('strategic-audit-form');
     const step1 = document.getElementById('step-1');
     const step2 = document.getElementById('step-2');
     const nextBtn = document.getElementById('next-btn');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
+    
     const allListenableInputs = Array.from(form.querySelectorAll('.listenable'));
     const progressBar = document.getElementById('progress-bar');
     
-    // --- ÉTAT ET CONFIGURATION ---
     const filledState = new Map();
     const MIN_WORDS_FOR_TEXTAREA = 5;
     const REACTIONS = [
@@ -489,7 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const SHORT_ANSWER_REACTION = { emoji: '🤔', text: 'Peux-tu développer ?' };
 
-    // --- LOGIQUE DES RÉACTIONS ---
     const getReactionContainer = (element) => element.closest('.input-wrapper').querySelector('.feedback-reaction');
     
     const showFeedback = (element) => {
@@ -498,7 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let reactionToShow = REACTIONS[Math.floor(Math.random() * REACTIONS.length)];
 
-        // Logique de réaction conditionnelle pour les textareas
         if (element.tagName === 'TEXTAREA') {
             const wordCount = element.value.trim().split(/\s+/).filter(word => word.length > 0).length;
             if (wordCount > 0 && wordCount < MIN_WORDS_FOR_TEXTAREA) {
@@ -507,15 +505,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         reactionContainer.classList.remove('animate');
-        void reactionContainer.offsetWidth; // Force le reflow du navigateur
+        void reactionContainer.offsetWidth;
         reactionContainer.innerHTML = `<span>${reactionToShow.emoji}</span> ${reactionToShow.text}`;
         reactionContainer.classList.add('animate');
     };
 
-    // --- LOGIQUE DE VÉRIFICATION & PROGRESSION ---
     const checkField = (element, showReaction = false) => {
         let isFilled = false;
-        const fieldName = element.name || element.id;
+        let fieldName = element.name || element.id;
 
         if (element.type === 'radio' || element.type === 'checkbox') {
             const group = form.querySelectorAll(`input[name="${fieldName}"]`);
@@ -524,23 +521,14 @@ document.addEventListener('DOMContentLoaded', () => {
             isFilled = true;
         }
 
-        if (isFilled && !filledState.get(fieldName)) {
-            if (showReaction && element.closest('.input-wrapper')) {
+        if(isFilled && !filledState.get(fieldName)) {
+            if(showReaction && element.closest('.input-wrapper')) {
                 showFeedback(element);
             }
         }
         filledState.set(fieldName, isFilled);
     };
 
-    const updateProgressBar = () => {
-        const requiredInputsInStep2 = Array.from(step2.querySelectorAll('.listenable')).filter(el => el.required);
-        const requiredFieldNames = new Set(requiredInputsInStep2.map(el => el.name || el.id));
-        const filledCount = Array.from(filledState.keys()).filter(key => requiredFieldNames.has(key) && filledState.get(key)).length;
-        const progress = requiredFieldNames.size > 0 ? (filledCount / requiredFieldNames.size) * 100 : 0;
-        progressBar.style.width = `${progress}%`;
-    };
-
-    // --- NAVIGATION ENTRE ÉTAPES ---
     nextBtn.addEventListener('click', () => {
         let isValid = true;
         [nameInput, emailInput].forEach(input => {
@@ -561,7 +549,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- ATTACHER LES ÉCOUTEURS D'ÉVÉNEMENTS ---
+    const updateProgressBar = () => {
+        const requiredInputsInStep2 = Array.from(step2.querySelectorAll('.listenable')).filter(el => el.required);
+        const requiredFieldNames = new Set(requiredInputsInStep2.map(el => el.name || el.id));
+        const filledCount = Array.from(filledState.keys()).filter(key => requiredFieldNames.has(key) && filledState.get(key)).length;
+        const progress = requiredFieldNames.size > 0 ? (filledCount / requiredFieldNames.size) * 100 : 0;
+        progressBar.style.width = `${progress}%`;
+    };
+
     allListenableInputs.forEach(input => {
         const eventType = (input.type === 'radio' || input.type === 'checkbox') ? 'change' : 'blur';
         input.addEventListener(eventType, (e) => {
@@ -591,7 +586,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- INITIALISATION ---
     allListenableInputs.forEach(input => checkField(input, false));
     updateProgressBar();
 });
