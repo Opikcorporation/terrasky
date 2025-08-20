@@ -16,6 +16,7 @@
             --input-border-color: #e2e8f0;
             --card-background: #ffffff;
             --subtle-text: #718096;
+            --error-color: #E53E3E;
         }
 
         body {
@@ -24,11 +25,12 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
+            font-size: 15px; /* Police de base légèrement réduite */
         }
         
         #logo {
             display: block;
-            max-height: 50px;
+            max-height: 45px;
             margin: 0 auto 30px auto;
         }
 
@@ -64,12 +66,12 @@
         }
 
         .form-container {
-            max-width: 720px;
+            max-width: 700px;
             width: 100%;
         }
 
         .form-header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
             margin-bottom: 1rem;
             letter-spacing: -1px;
@@ -77,31 +79,46 @@
         }
 
         .form-header p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 3.5rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
             color: var(--subtle-text);
             text-align: center;
         }
+        .form-header .description-container {
+             margin-bottom: 2.5rem;
+        }
+
+        /* LOGIQUE DES ÉTAPES */
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .form-section {
-            margin-bottom: 4rem;
+            margin-bottom: 3.5rem;
         }
         
         .form-group {
             margin-bottom: 2.5rem;
         }
         
-        label {
-            display: block;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        /* NOUVEAU CONTENEUR POUR UN POSITIONNEMENT ROBUSTE */
         .input-wrapper {
             position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
         }
 
         input[type="text"],
@@ -112,11 +129,17 @@
             background-color: #fdfdfd;
             border: 1px solid var(--input-border-color);
             border-radius: 8px;
-            padding: 14px 16px;
-            font-size: 1.1rem;
+            padding: 12px 14px;
+            font-size: 1rem;
             font-family: var(--font-family);
             color: var(--text-color);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input.error {
+            border-color: var(--error-color);
+        }
+        input.error:focus {
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2);
         }
 
         input[type="text"]:focus,
@@ -137,7 +160,7 @@
             display: flex;
             align-items: flex-start;
             margin-bottom: 1rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
         }
         .options-group input[type="radio"], .options-group input[type="checkbox"] {
@@ -145,9 +168,9 @@
            position: absolute;
         }
         .checkmark {
-            height: 22px;
-            width: 22px;
-            min-width: 22px;
+            height: 20px;
+            width: 20px;
+            min-width: 20px;
             background-color: #eee;
             border: 1px solid var(--input-border-color);
             border-radius: 6px;
@@ -189,8 +212,8 @@
 
         .other-input {
             display: none;
-            width: calc(100% - 34px);
-            margin-left: 34px;
+            width: calc(100% - 32px);
+            margin-left: 32px;
             margin-top: -5px;
         }
         .other-input.visible {
@@ -219,13 +242,12 @@
             color: white;
             border-color: var(--accent-color);
         }
-        
-        /* --- STYLE DE RÉACTION CORRIGÉ ET FINAL --- */
+
         .feedback-reaction {
             position: absolute;
-            top: 0; /* Ancrage en haut du conteneur .input-wrapper */
+            top: 0;
             right: 5px;
-            transform: translateY(-50%); /* Remonte de moitié pour s'asseoir sur la bordure */
+            transform: translateY(-50%);
             background-color: #2D3748;
             color: white;
             padding: 8px 12px;
@@ -250,45 +272,34 @@
         }
         .feedback-reaction span { margin-right: 5px; }
 
-
-        button[type="submit"] {
+        .button {
             width: 100%;
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 18px 32px;
-            font-size: 1.2rem;
+            padding: 16px 32px;
+            font-size: 1.1rem;
             font-weight: 700;
             font-family: var(--font-family);
             border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 14px 0 rgba(46, 209, 198, 0.3);
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
 
-        button[type="submit"]:hover {
+        .button:hover {
             background-color: #25a8a0;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px 0 rgba(46, 209, 198, 0.35);
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                padding: 20px 15px;
-            }
-            #logo {
-                max-height: 40px;
-            }
-            .form-header h1 {
-                font-size: 2rem;
-            }
-            .rating-scale-group {
-                gap: 5px;
-            }
-            .rating-button {
-                padding: 10px 5px;
-            }
+            .main-content { padding: 20px 15px; }
+            #logo { max-height: 40px; }
+            .form-header h1 { font-size: 1.8rem; }
+            .rating-scale-group { gap: 5px; }
+            .rating-button { padding: 10px 5px; }
             .other-input {
                 margin-left: 0;
                 margin-top: 10px;
@@ -298,293 +309,307 @@
     </style>
 </head>
 <body>
-
-    <header class="progress-container">
-        <div class="progress-bar-container">
-            <div id="progress-bar"></div>
-        </div>
-    </header>
-
     <main class="main-content">
         <div class="form-container">
-            
-            <img id="logo" src="images/logo.png" alt="Logo Terra Sky">
-
-            <header class="form-header">
-                <h1>Audit Stratégique</h1>
-                <p>Ce formulaire est notre point de départ pour construire ton succès. Tes réponses honnêtes nous aideront à te fournir les meilleurs outils et formations pour que tu puisses te dépasser. Merci pour ta confiance.</p>
-            </header>
-
             <form action="https://api.web3forms.com/submit" method="POST" id="strategic-audit-form">
 
                 <input type="hidden" name="access_key" value="a78e2699-d790-4411-9f10-2e63aa5d47a4">
                 <input type="hidden" name="subject" value="Nouvelle réponse - Audit Stratégique d'Agent">
                 <input type="hidden" name="from_name" value="Formulaire d'Audit Terra Sky">
+                
+                <div id="step-1" class="form-step active">
+                    <img id="logo" src="images/logo.png" alt="Logo Terra Sky">
+                    <header class="form-header">
+                        <h1>Audit Stratégique</h1>
+                        <div class="description-container">
+                            <p>Ce formulaire est notre point de départ pour construire ton succès.</p>
+                            <p>Tes réponses honnêtes nous aideront à te fournir les meilleurs outils et formations pour que tu puisses te dépasser.</p>
+                            <p>Merci pour ta confiance.</p>
+                        </div>
+                    </header>
 
-                <section class="form-section">
-                    <h2>Section 1 : Informations</h2>
                     <div class="form-group">
                         <label for="name">Prénom & Nom</label>
                         <div class="input-wrapper">
-                            <input class="listenable" type="text" id="name" name="nom_complet" placeholder="Ex: Jean Dupont" required>
-                            <span class="feedback-reaction"></span>
+                            <input type="text" id="name" name="nom_complet" placeholder="Ex: Jean Dupont" required>
                         </div>
                     </div>
                      <div class="form-group">
                         <label for="email">Adresse mail</label>
                         <div class="input-wrapper">
-                            <input class="listenable" type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
-                            <span class="feedback-reaction"></span>
+                            <input type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
                         </div>
                     </div>
-                </section>
-                
-                <section class="form-section">
-                     <h2>Section 2 : Vision & Motivation</h2>
-                     <div class="form-group">
-                        <label for="origin_story">Qu'est-ce qui t'a amené à l'immobilier à Dubaï et qu'est-ce qui te donne de l'énergie le matin ?</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="origin_story" name="histoire_et_motivation" required></textarea>
-                            <span class="feedback-reaction"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="success">Décris ta réussite idéale dans 2 ans (revenus, réputation...).</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="success" name="reussite_ideale" required></textarea>
-                            <span class="feedback-reaction"></span>
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label for="three_words">Les 3 mots qui doivent te définir</label>
-                        <div class="input-wrapper">
-                            <input class="listenable" type="text" id="three_words" name="trois_mots" placeholder="Ex: Efficace, Fiable, Expert" required>
-                            <span class="feedback-reaction"></span>
-                        </div>
-                    </div>
-                </section>
+                    <button type="button" id="next-btn" class="button">Commencer l'Audit</button>
+                </div>
 
-                <section class="form-section">
-                    <h2>Section 3 : Stratégie & Positionnement</h2>
-                    <div class="form-group">
-                        <label for="strengths">Quelles sont tes 3 plus grandes forces en tant qu'agent ?</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="strengths" name="forces" required></textarea>
-                            <span class="feedback-reaction"></span>
+                <div id="step-2" class="form-step">
+                    <header class="progress-container">
+                        <div class="progress-bar-container">
+                            <div id="progress-bar"></div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="weakness">Quelle est la compétence où tu te sens le moins à l'aise (ou que tu procrastines) ?</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="weakness" name="faiblesse_procrastination" required></textarea>
-                            <span class="feedback-reaction"></span>
+                    </header>
+                    
+                    <section class="form-section" style="margin-top: 2.5rem;">
+                         <h2>Section 1 : Vision & Motivation</h2>
+                         <div class="form-group">
+                            <label for="origin_story">Qu'est-ce qui t'a amené à l'immobilier à Dubaï et qu'est-ce qui te donne de l'énergie le matin ?</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="origin_story" name="histoire_et_motivation" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
                         </div>
-                    </div>
-                     <div class="form-group">
-                        <label for="uvp">Pourquoi un client devrait te choisir TOI ? (Ta compétence N°1)</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="uvp" name="proposition_de_valeur" required></textarea>
-                            <span class="feedback-reaction"></span>
+                        <div class="form-group">
+                            <label for="success">Décris ta réussite idéale dans 2 ans (revenus, réputation...).</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="success" name="reussite_ideale" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="client">Décris ton client idéal (métier, challenges, rêves...).</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="client" name="client_ideal" required></textarea>
-                            <span class="feedback-reaction"></span>
+                         <div class="form-group">
+                            <label for="three_words">Les 3 mots qui doivent te définir</label>
+                            <div class="input-wrapper">
+                                <input class="listenable" type="text" id="three_words" name="trois_mots" placeholder="Ex: Efficace, Fiable, Expert" required>
+                                <span class="feedback-reaction"></span>
+                            </div>
                         </div>
-                    </div>
-                     <div class="form-group">
-                        <label>D'où viennent la majorité de tes clients actuellement ?</label>
-                        <div class="options-group">
-                            <label><input class="listenable" type="radio" name="lead_source" value="Bouche a oreille" required><span class="checkmark radio"></span> Bouche-à-oreille / Réseau</label>
-                            <label><input class="listenable" type="radio" name="lead_source" value="Portails immobiliers"><span class="checkmark radio"></span> Leads des portails</label>
-                            <label><input class="listenable" type="radio" name="lead_source" value="Reseaux sociaux"><span class="checkmark radio"></span> Réseaux sociaux</label>
-                            <label><input class="listenable" type="radio" name="lead_source" value="Prospection directe"><span class="checkmark radio"></span> Prospection directe</label>
-                            <label><input class="listenable" type="radio" name="lead_source" value="Autre"><span class="checkmark radio"></span> Autre</label>
-                            <input type="text" name="lead_source_other" class="other-input" placeholder="Veuillez préciser...">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label>Quel est ton objectif principal sur les réseaux sociaux ?</label>
-                        <div class="options-group">
-                            <label><input class="listenable" type="radio" name="social_goal" value="Notoriete" required><span class="checkmark radio"></span> Gagner en notoriété (Personal Branding)</label>
-                            <label><input class="listenable" type="radio" name="social_goal" value="Leads"><span class="checkmark radio"></span> Générer des leads directement</label>
-                            <label><input class="listenable" type="radio" name="social_goal" value="Reseautage"><span class="checkmark radio"></span> Réseauter avec d'autres professionnels</label>
-                            <label><input class="listenable" type="radio" name="social_goal" value="Non_utilise"><span class="checkmark radio"></span> Je ne les utilise pas vraiment</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>À quelle fréquence publies-tu ?</label>
-                        <div class="options-group">
-                            <label><input class="listenable" type="radio" name="post_frequency" value="Tous les jours" required><span class="checkmark radio"></span> Quasiment tous les jours</label>
-                            <label><input class="listenable" type="radio" name="post_frequency" value="Quelques fois par semaine"><span class="checkmark radio"></span> Quelques fois par semaine</label>
-                            <label><input class="listenable" type="radio" name="post_frequency" value="Rarement"><span class="checkmark radio"></span> Rarement</label>
-                            <label><input class="listenable" type="radio" name="post_frequency" value="Jamais"><span class="checkmark radio"></span> Jamais</label>
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label>Sur une échelle de 1 (pas du tout) à 5 (extrêmement), comment notes-tu ta satisfaction concernant ta présence en ligne ?</label>
-                        <div class="rating-scale-group">
-                            <label><input class="listenable" type="radio" name="satisfaction_online" value="1" required><span class="rating-button">1</span></label>
-                            <label><input class="listenable" type="radio" name="satisfaction_online" value="2"><span class="rating-button">2</span></label>
-                            <label><input class="listenable" type="radio" name="satisfaction_online" value="3"><span class="rating-button">3</span></label>
-                            <label><input class="listenable" type="radio" name="satisfaction_online" value="4"><span class="rating-button">4</span></label>
-                            <label><input class="listenable" type="radio" name="satisfaction_online" value="5"><span class="rating-button">5</span></label>
-                        </div>
-                    </div>
-                </section>
+                    </section>
 
-                <section class="form-section">
-                    <h2>Section 4 : Process & Besoins Opérationnels</h2>
-                     <div class="form-group">
-                        <label for="time_waster">Quelle est LA tâche qui te prend le plus de temps pour le moins de résultats ?</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="time_waster" name="tache_chronophage" required></textarea>
-                            <span class="feedback-reaction"></span>
+                    <section class="form-section">
+                        <h2>Section 2 : Stratégie & Positionnement</h2>
+                        <div class="form-group">
+                            <label for="strengths">Quelles sont tes 3 plus grandes forces en tant qu'agent ?</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="strengths" name="forces" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="tech_tools">Qu'est-ce qui te manque le plus pour être plus performant ?</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="tech_tools" name="outils_support_manquant" placeholder="Un outil, un logiciel, le soutien d'un expert (assistant, juriste...)..." required></textarea>
-                            <span class="feedback-reaction"></span>
+                        <div class="form-group">
+                            <label for="weakness">Quelle est la compétence où tu te sens le moins à l'aise (ou que tu procrastines) ?</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="weakness" name="faiblesse_procrastination" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                         <div class="form-group">
+                            <label for="uvp">Pourquoi un client devrait te choisir TOI ? (Ta compétence N°1)</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="uvp" name="proposition_de_valeur" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="client">Décris ton client idéal (métier, challenges, rêves...).</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="client" name="client_ideal" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label>D'où viennent la majorité de tes clients actuellement ?</label>
+                            <div class="options-group">
+                                <label><input class="listenable" type="radio" name="lead_source" value="Bouche a oreille" required><span class="checkmark radio"></span> Bouche-à-oreille / Réseau</label>
+                                <label><input class="listenable" type="radio" name="lead_source" value="Portails immobiliers"><span class="checkmark radio"></span> Leads des portails</label>
+                                <label><input class="listenable" type="radio" name="lead_source" value="Reseaux sociaux"><span class="checkmark radio"></span> Réseaux sociaux</label>
+                                <label><input class="listenable" type="radio" name="lead_source" value="Prospection directe"><span class="checkmark radio"></span> Prospection directe</label>
+                                <label><input class="listenable" type="radio" name="lead_source" value="Autre"><span class="checkmark radio"></span> Autre</label>
+                                <input type="text" name="lead_source_other" class="other-input" placeholder="Veuillez préciser...">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label>Quel est ton objectif principal sur les réseaux sociaux ?</label>
+                            <div class="options-group">
+                                <label><input class="listenable" type="radio" name="social_goal" value="Notoriete" required><span class="checkmark radio"></span> Gagner en notoriété (Personal Branding)</label>
+                                <label><input class="listenable" type="radio" name="social_goal" value="Leads"><span class="checkmark radio"></span> Générer des leads directement</label>
+                                <label><input class="listenable" type="radio" name="social_goal" value="Reseautage"><span class="checkmark radio"></span> Réseauter avec d'autres professionnels</label>
+                                <label><input class="listenable" type="radio" name="social_goal" value="Non_utilise"><span class="checkmark radio"></span> Je ne les utilise pas vraiment</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>À quelle fréquence publies-tu ?</label>
+                            <div class="options-group">
+                                <label><input class="listenable" type="radio" name="post_frequency" value="Tous les jours" required><span class="checkmark radio"></span> Quasiment tous les jours</label>
+                                <label><input class="listenable" type="radio" name="post_frequency" value="Quelques fois par semaine"><span class="checkmark radio"></span> Quelques fois par semaine</label>
+                                <label><input class="listenable" type="radio" name="post_frequency" value="Rarement"><span class="checkmark radio"></span> Rarement</label>
+                                <label><input class="listenable" type="radio" name="post_frequency" value="Jamais"><span class="checkmark radio"></span> Jamais</label>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label>Sur une échelle de 1 (pas du tout) à 5 (extrêmement), comment notes-tu ta satisfaction concernant ta présence en ligne ?</label>
+                            <div class="rating-scale-group">
+                                <label><input class="listenable" type="radio" name="satisfaction_online" value="1" required><span class="rating-button">1</span></label>
+                                <label><input class="listenable" type="radio" name="satisfaction_online" value="2"><span class="rating-button">2</span></label>
+                                <label><input class="listenable" type="radio" name="satisfaction_online" value="3"><span class="rating-button">3</span></label>
+                                <label><input class="listenable" type="radio" name="satisfaction_online" value="4"><span class="rating-button">4</span></label>
+                                <label><input class="listenable" type="radio" name="satisfaction_online" value="5"><span class="rating-button">5</span></label>
+                            </div>
+                        </div>
+                    </section>
 
-                <section class="form-section">
-                    <h2>Section 5 : Développement & Feedback</h2>
-                    <div class="form-group">
-                        <label for="obstacle">Quel est ton plus grand obstacle pour atteindre le niveau supérieur ?</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="obstacle" name="obstacle_principal" required></textarea>
-                            <span class="feedback-reaction"></span>
+                    <section class="form-section">
+                        <h2>Section 3 : Process & Besoins Opérationnels</h2>
+                         <div class="form-group">
+                            <label for="time_waster">Quelle est LA tâche qui te prend le plus de temps pour le moins de résultats ?</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="time_waster" name="tache_chronophage" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Sur quelles compétences aimerais-tu recevoir une formation ?</label>
-                        <div class="options-group">
-                            <label><input class="listenable" type="checkbox" name="formations[]" value="Negociation Avancee"><span class="checkmark"></span> Négociation avancée & Closing</label>
-                            <label><input class="listenable" type="checkbox" name="formations[]" value="Creation Contenu Video"><span class="checkmark"></span> Création de contenu vidéo (Reels...)</label>
-                            <label><input class="listenable" type="checkbox" name="formations[]" value="Personal Branding & LinkedIn"><span class="checkmark"></span> Personal Branding & LinkedIn</label>
-                            <label><input class="listenable" type="checkbox" name="formations[]" value="Prospection Haut de Gamme"><span class="checkmark"></span> Prospection clients UHNWI</label>
-                            <label><input class="listenable" type="checkbox" name="formations[]" value="Autre"><span class="checkmark"></span> Autre formation</label>
-                            <input type="text" name="formations_other" class="other-input" placeholder="Laquelle ?">
+                        <div class="form-group">
+                            <label for="tech_tools">Qu'est-ce qui te manque le plus pour être plus performant ?</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="tech_tools" name="outils_support_manquant" placeholder="Un outil, un logiciel, le soutien d'un expert (assistant, juriste...)..." required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="change_terra_sky">Si tu avais une baguette magique, LA chose que tu améliorerais chez Terra Sky ?</label>
-                        <div class="input-wrapper">
-                            <textarea class="listenable" id="change_terra_sky" name="amelioration_terra_sky" placeholder="Process, ambiance, réunions, support..." required></textarea>
-                            <span class="feedback-reaction"></span>
-                        </div>
-                    </div>
-                </section>
+                    </section>
 
-                <button type="submit">Envoyer mon Audit Stratégique</button>
+                    <section class="form-section">
+                        <h2>Section 4 : Développement & Feedback</h2>
+                        <div class="form-group">
+                            <label for="obstacle">Quel est ton plus grand obstacle pour atteindre le niveau supérieur ?</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="obstacle" name="obstacle_principal" required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Sur quelles compétences aimerais-tu recevoir une formation ?</label>
+                            <div class="options-group">
+                                <label><input class="listenable" type="checkbox" name="formations[]" value="Negociation Avancee"><span class="checkmark"></span> Négociation avancée & Closing</label>
+                                <label><input class="listenable" type="checkbox" name="formations[]" value="Creation Contenu Video"><span class="checkmark"></span> Création de contenu vidéo (Reels...)</label>
+                                <label><input class="listenable" type="checkbox" name="formations[]" value="Personal Branding & LinkedIn"><span class="checkmark"></span> Personal Branding & LinkedIn</label>
+                                <label><input class="listenable" type="checkbox" name="formations[]" value="Prospection Haut de Gamme"><span class="checkmark"></span> Prospection clients UHNWI</label>
+                                <label><input class="listenable" type="checkbox" name="formations[]" value="Autre"><span class="checkmark"></span> Autre formation</label>
+                                <input type="text" name="formations_other" class="other-input" placeholder="Laquelle ?">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="change_terra_sky">Si tu avais une baguette magique, LA chose que tu améliorerais chez Terra Sky ?</label>
+                            <div class="input-wrapper">
+                                <textarea class="listenable" id="change_terra_sky" name="amelioration_terra_sky" placeholder="Process, ambiance, réunions, support..." required></textarea>
+                                <span class="feedback-reaction"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <button type="submit" class="button">Envoyer mon Audit Stratégique</button>
+                </div>
             </form>
         </div>
     </main>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('strategic-audit-form');
-        const inputs = Array.from(form.querySelectorAll('.listenable'));
-        const progressBar = document.getElementById('progress-bar');
-        
-        const filledState = new Map();
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('strategic-audit-form');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const nextBtn = document.getElementById('next-btn');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
 
-        const REACTIONS = [
-            { emoji: '✨', text: 'Super !' },
-            { emoji: '👍', text: 'Bien noté.' },
-            { emoji: '🎯', text: 'Précis !' },
-            { emoji: '🤔', text: 'Intéressant...' },
-            { emoji: '👌', text: 'Parfait.' },
-            { emoji: '✅', text: 'C\'est noté.' }
-        ];
+    nextBtn.addEventListener('click', () => {
+        let isValid = true;
+        nameInput.classList.remove('error');
+        emailInput.classList.remove('error');
 
-        const updateProgressBar = () => {
-            const requiredInputs = inputs.filter(el => el.required);
-            const requiredFieldNames = new Set(requiredInputs.map(el => el.name || el.id));
-            const filledCount = Array.from(filledState.keys()).filter(key => requiredFieldNames.has(key) && filledState.get(key)).length;
-            const progress = requiredFieldNames.size > 0 ? (filledCount / requiredFieldNames.size) * 100 : 0;
-            progressBar.style.width = `${progress}%`;
-        };
-        
-        const getReactionContainer = (element) => {
-            return element.closest('.input-wrapper').querySelector('.feedback-reaction');
-        };
-        
-        const showFeedback = (element) => {
-            const reactionContainer = getReactionContainer(element);
-            if (!reactionContainer) return;
+        if (nameInput.value.trim() === '') {
+            nameInput.classList.add('error');
+            isValid = false;
+        }
+        if (emailInput.value.trim() === '' || !emailInput.value.includes('@')) {
+            emailInput.classList.add('error');
+            isValid = false;
+        }
 
-            reactionContainer.classList.remove('animate');
-            void reactionContainer.offsetWidth;
-
-            const randomReaction = REACTIONS[Math.floor(Math.random() * REACTIONS.length)];
-            reactionContainer.innerHTML = `<span>${randomReaction.emoji}</span> ${randomReaction.text}`;
-            reactionContainer.classList.add('animate');
-        };
-
-        const checkField = (element) => {
-            let isFilled = false;
-            let fieldName = element.name || element.id;
-
-            if (element.type === 'radio') {
-                const radioGroup = form.querySelectorAll(`input[name="${fieldName}"]`);
-                if (Array.from(radioGroup).some(radio => radio.checked)) isFilled = true;
-            } else if (element.type === 'checkbox') {
-                 const checkboxGroup = form.querySelectorAll(`input[name="${fieldName}"]`);
-                 if (Array.from(checkboxGroup).some(checkbox => checkbox.checked)) isFilled = true;
-            } else if (element.value.trim() !== '') {
-                isFilled = true;
-            }
-
-            if(isFilled && !filledState.get(fieldName)) {
-                // On ne montre la réaction que pour les champs texte
-                if(element.closest('.input-wrapper')) {
-                    showFeedback(element);
-                }
-            }
-            
-            filledState.set(fieldName, isFilled);
-        };
-
-        inputs.forEach(input => {
-            const eventType = (input.type === 'radio' || input.type === 'checkbox') ? 'change' : 'blur';
-            input.addEventListener(eventType, (e) => {
-                checkField(e.target);
-                updateProgressBar();
-            });
-        });
-
-        const otherToggles = form.querySelectorAll('input[value="Autre"]');
-        otherToggles.forEach(toggle => {
-            const group = toggle.closest('.options-group');
-            const otherInput = group.querySelector('.other-input');
-            if (!otherInput) return;
-
-            const groupName = toggle.name;
-
-            group.addEventListener('change', (e) => {
-                if (e.target.name !== groupName) return;
-                const isOtherSelected = toggle.checked;
-
-                if (isOtherSelected) {
-                    otherInput.classList.add('visible');
-                    otherInput.focus();
-                } else {
-                     otherInput.classList.remove('visible');
-                     otherInput.value = '';
-                }
-            });
-        });
-
-        inputs.forEach(input => checkField(input));
-        updateProgressBar();
+        if (isValid) {
+            step1.classList.remove('active');
+            step2.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     });
+
+    const inputs = Array.from(form.querySelectorAll('.listenable'));
+    const progressBar = document.getElementById('progress-bar');
+    const filledState = new Map();
+    const REACTIONS = [
+        { emoji: '✨', text: 'Super !' }, { emoji: '👍', text: 'Bien noté.' },
+        { emoji: '🎯', text: 'Précis !' }, { emoji: '🤔', text: 'Intéressant...' },
+        { emoji: '👌', text: 'Parfait.' }, { emoji: '✅', text: 'C\'est noté.' }
+    ];
+
+    const updateProgressBar = () => {
+        const requiredInputs = inputs.filter(el => el.required);
+        const requiredFieldNames = new Set(requiredInputs.map(el => el.name || el.id));
+        const filledCount = Array.from(filledState.keys()).filter(key => requiredFieldNames.has(key) && filledState.get(key)).length;
+        const progress = requiredFieldNames.size > 0 ? (filledCount / requiredFieldNames.size) * 100 : 0;
+        progressBar.style.width = `${progress}%`;
+    };
+
+    const getReactionContainer = (element) => element.closest('.input-wrapper').querySelector('.feedback-reaction');
+    
+    const showFeedback = (element) => {
+        const reactionContainer = getReactionContainer(element);
+        if (!reactionContainer) return;
+        reactionContainer.classList.remove('animate');
+        void reactionContainer.offsetWidth;
+        const randomReaction = REACTIONS[Math.floor(Math.random() * REACTIONS.length)];
+        reactionContainer.innerHTML = `<span>${randomReaction.emoji}</span> ${randomReaction.text}`;
+        reactionContainer.classList.add('animate');
+    };
+
+    const checkField = (element) => {
+        let isFilled = false;
+        let fieldName = element.name || element.id;
+
+        if (element.type === 'radio') {
+            const radioGroup = form.querySelectorAll(`input[name="${fieldName}"]`);
+            if (Array.from(radioGroup).some(radio => radio.checked)) isFilled = true;
+        } else if (element.type === 'checkbox') {
+             const checkboxGroup = form.querySelectorAll(`input[name="${fieldName}"]`);
+             if (Array.from(checkboxGroup).some(checkbox => checkbox.checked)) isFilled = true;
+        } else if (element.value.trim() !== '') {
+            isFilled = true;
+        }
+
+        if(isFilled && !filledState.get(fieldName)) {
+            if(element.closest('.input-wrapper')) {
+                showFeedback(element);
+            }
+        }
+        filledState.set(fieldName, isFilled);
+    };
+
+    inputs.forEach(input => {
+        const eventType = (input.type === 'radio' || input.type === 'checkbox') ? 'change' : 'blur';
+        input.addEventListener(eventType, (e) => {
+            checkField(e.target);
+            updateProgressBar();
+        });
+    });
+
+    const otherToggles = form.querySelectorAll('input[value="Autre"]');
+    otherToggles.forEach(toggle => {
+        const group = toggle.closest('.options-group');
+        const otherInput = group.querySelector('.other-input');
+        if (!otherInput) return;
+        const groupName = toggle.name;
+
+        group.addEventListener('change', (e) => {
+            if (e.target.name !== groupName) return;
+            if (toggle.checked) {
+                otherInput.classList.add('visible');
+                otherInput.focus();
+            } else {
+                 otherInput.classList.remove('visible');
+                 otherInput.value = '';
+            }
+        });
+    });
+
+    inputs.forEach(input => checkField(input));
+    updateProgressBar();
+});
 </script>
 
 </body>
