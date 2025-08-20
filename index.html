@@ -90,7 +90,6 @@
         
         .form-group {
             margin-bottom: 2.5rem;
-            position: relative;
         }
         
         label {
@@ -98,6 +97,11 @@
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 1rem;
+        }
+        
+        /* NOUVEAU CONTENEUR POUR UN POSITIONNEMENT ROBUSTE */
+        .input-wrapper {
+            position: relative;
         }
 
         input[type="text"],
@@ -135,7 +139,6 @@
             margin-bottom: 1rem;
             font-size: 1.1rem;
             cursor: pointer;
-            position: relative;
         }
         .options-group input[type="radio"], .options-group input[type="checkbox"] {
            opacity: 0;
@@ -199,12 +202,8 @@
             justify-content: space-between;
             gap: 10px;
         }
-        .rating-scale-group label {
-            flex-grow: 1;
-        }
-        .rating-scale-group input {
-            display: none;
-        }
+        .rating-scale-group label { flex-grow: 1; }
+        .rating-scale-group input { display: none; }
         .rating-button {
             display: block;
             text-align: center;
@@ -220,28 +219,37 @@
             color: white;
             border-color: var(--accent-color);
         }
-
+        
+        /* --- STYLE DE RÉACTION CORRIGÉ ET FINAL --- */
         .feedback-reaction {
             position: absolute;
-            right: 0px;
-            top: 45px;
-            transform: translateX(105%) scale(0.8);
-            opacity: 0;
-            background-color: var(--text-color);
+            top: 0; /* Ancrage en haut du conteneur .input-wrapper */
+            right: 5px;
+            transform: translateY(-50%); /* Remonte de moitié pour s'asseoir sur la bordure */
+            background-color: #2D3748;
             color: white;
             padding: 8px 12px;
-            border-radius: 20px;
+            border-radius: 18px;
             font-size: 0.9rem;
             font-weight: 700;
             white-space: nowrap;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
+            opacity: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            z-index: 10;
         }
-        .feedback-reaction.visible {
-            opacity: 1;
-            transform: translateX(105%) scale(1);
+        .feedback-reaction.animate {
+            animation: popInAndOut 2.5s ease-in-out forwards;
         }
-        .feedback-reaction span { margin-right: 6px; }
+        @keyframes popInAndOut {
+            0% { opacity: 0; transform: translateY(-50%) scale(0.5); }
+            15% { opacity: 1; transform: translateY(-50%) scale(1.05); }
+            40% { opacity: 1; transform: translateY(-50%) scale(1); }
+            80% { opacity: 1; transform: translateY(-50%) scale(1); }
+            100% { opacity: 0; transform: translateY(-50%) scale(0.7); }
+        }
+        .feedback-reaction span { margin-right: 5px; }
+
 
         button[type="submit"] {
             width: 100%;
@@ -266,30 +274,14 @@
         }
 
         @media (max-width: 768px) {
-            .progress-container {
-                padding: 10px 20px;
-            }
             .main-content {
-                padding: 20px 10px;
+                padding: 20px 15px;
             }
             #logo {
                 max-height: 40px;
             }
             .form-header h1 {
                 font-size: 2rem;
-            }
-            .feedback-reaction {
-                top: auto;
-                bottom: -35px;
-                left: 0;
-                right: auto;
-                transform: translateY(10px) scale(0.8);
-            }
-            .feedback-reaction.visible {
-                transform: translateY(0) scale(1);
-            }
-            .form-group {
-                margin-bottom: 4rem;
             }
             .rating-scale-group {
                 gap: 5px;
@@ -325,8 +317,7 @@
 
             <form action="https://api.web3forms.com/submit" method="POST" id="strategic-audit-form">
 
-                <input type="hidden" name="access_key" value="a78e2699-d790-4411-9f10-2e63aa5d47a4
-">
+                <input type="hidden" name="access_key" value="a78e2699-d790-4411-9f10-2e63aa5d47a4">
                 <input type="hidden" name="subject" value="Nouvelle réponse - Audit Stratégique d'Agent">
                 <input type="hidden" name="from_name" value="Formulaire d'Audit Terra Sky">
 
@@ -334,13 +325,17 @@
                     <h2>Section 1 : Informations</h2>
                     <div class="form-group">
                         <label for="name">Prénom & Nom</label>
-                        <input class="listenable" type="text" id="name" name="nom_complet" placeholder="Ex: Jean Dupont" required>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <input class="listenable" type="text" id="name" name="nom_complet" placeholder="Ex: Jean Dupont" required>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                      <div class="form-group">
                         <label for="email">Adresse mail</label>
-                        <input class="listenable" type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <input class="listenable" type="email" id="email" name="email" placeholder="Ex: jean.dupont@email.com" required>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                 </section>
                 
@@ -348,18 +343,24 @@
                      <h2>Section 2 : Vision & Motivation</h2>
                      <div class="form-group">
                         <label for="origin_story">Qu'est-ce qui t'a amené à l'immobilier à Dubaï et qu'est-ce qui te donne de l'énergie le matin ?</label>
-                        <textarea class="listenable" id="origin_story" name="histoire_et_motivation" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="origin_story" name="histoire_et_motivation" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="success">Décris ta réussite idéale dans 2 ans (revenus, réputation...).</label>
-                        <textarea class="listenable" id="success" name="reussite_ideale" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="success" name="reussite_ideale" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                      <div class="form-group">
                         <label for="three_words">Les 3 mots qui doivent te définir</label>
-                        <input class="listenable" type="text" id="three_words" name="trois_mots" placeholder="Ex: Efficace, Fiable, Expert" required>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <input class="listenable" type="text" id="three_words" name="trois_mots" placeholder="Ex: Efficace, Fiable, Expert" required>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                 </section>
 
@@ -367,23 +368,31 @@
                     <h2>Section 3 : Stratégie & Positionnement</h2>
                     <div class="form-group">
                         <label for="strengths">Quelles sont tes 3 plus grandes forces en tant qu'agent ?</label>
-                        <textarea class="listenable" id="strengths" name="forces" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="strengths" name="forces" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="weakness">Quelle est la compétence où tu te sens le moins à l'aise (ou que tu procrastines) ?</label>
-                        <textarea class="listenable" id="weakness" name="faiblesse_procrastination" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="weakness" name="faiblesse_procrastination" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                      <div class="form-group">
                         <label for="uvp">Pourquoi un client devrait te choisir TOI ? (Ta compétence N°1)</label>
-                        <textarea class="listenable" id="uvp" name="proposition_de_valeur" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="uvp" name="proposition_de_valeur" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="client">Décris ton client idéal (métier, challenges, rêves...).</label>
-                        <textarea class="listenable" id="client" name="client_ideal" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="client" name="client_ideal" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                      <div class="form-group">
                         <label>D'où viennent la majorité de tes clients actuellement ?</label>
@@ -430,13 +439,17 @@
                     <h2>Section 4 : Process & Besoins Opérationnels</h2>
                      <div class="form-group">
                         <label for="time_waster">Quelle est LA tâche qui te prend le plus de temps pour le moins de résultats ?</label>
-                        <textarea class="listenable" id="time_waster" name="tache_chronophage" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="time_waster" name="tache_chronophage" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="tech_tools">Qu'est-ce qui te manque le plus pour être plus performant ?</label>
-                        <textarea class="listenable" id="tech_tools" name="outils_support_manquant" placeholder="Un outil, un logiciel, le soutien d'un expert (assistant, juriste...)..." required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="tech_tools" name="outils_support_manquant" placeholder="Un outil, un logiciel, le soutien d'un expert (assistant, juriste...)..." required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                 </section>
 
@@ -444,8 +457,10 @@
                     <h2>Section 5 : Développement & Feedback</h2>
                     <div class="form-group">
                         <label for="obstacle">Quel est ton plus grand obstacle pour atteindre le niveau supérieur ?</label>
-                        <textarea class="listenable" id="obstacle" name="obstacle_principal" required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="obstacle" name="obstacle_principal" required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Sur quelles compétences aimerais-tu recevoir une formation ?</label>
@@ -460,8 +475,10 @@
                     </div>
                     <div class="form-group">
                         <label for="change_terra_sky">Si tu avais une baguette magique, LA chose que tu améliorerais chez Terra Sky ?</label>
-                        <textarea class="listenable" id="change_terra_sky" name="amelioration_terra_sky" placeholder="Process, ambiance, réunions, support..." required></textarea>
-                        <span class="feedback-reaction"></span>
+                        <div class="input-wrapper">
+                            <textarea class="listenable" id="change_terra_sky" name="amelioration_terra_sky" placeholder="Process, ambiance, réunions, support..." required></textarea>
+                            <span class="feedback-reaction"></span>
+                        </div>
                     </div>
                 </section>
 
@@ -496,20 +513,19 @@
         };
         
         const getReactionContainer = (element) => {
-            return element.closest('.form-group').querySelector('.feedback-reaction');
+            return element.closest('.input-wrapper').querySelector('.feedback-reaction');
         };
         
         const showFeedback = (element) => {
             const reactionContainer = getReactionContainer(element);
-            if (!reactionContainer || reactionContainer.classList.contains('visible')) return;
-            
+            if (!reactionContainer) return;
+
+            reactionContainer.classList.remove('animate');
+            void reactionContainer.offsetWidth;
+
             const randomReaction = REACTIONS[Math.floor(Math.random() * REACTIONS.length)];
             reactionContainer.innerHTML = `<span>${randomReaction.emoji}</span> ${randomReaction.text}`;
-            reactionContainer.classList.add('visible');
-
-            setTimeout(() => {
-                reactionContainer.classList.remove('visible');
-            }, 2000);
+            reactionContainer.classList.add('animate');
         };
 
         const checkField = (element) => {
@@ -527,7 +543,8 @@
             }
 
             if(isFilled && !filledState.get(fieldName)) {
-                if(element.type !== 'radio' && element.type !== 'checkbox') {
+                // On ne montre la réaction que pour les champs texte
+                if(element.closest('.input-wrapper')) {
                     showFeedback(element);
                 }
             }
